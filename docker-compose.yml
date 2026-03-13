@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: vunapay_db
+    environment:
+      POSTGRES_USER: vunapay
+      POSTGRES_PASSWORD: vunapay_secret
+      POSTGRES_DB: wallet_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./src/db/migrations.sql:/docker-entrypoint-initdb.d/01_migrations.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vunapay -d wallet_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: vunapay_app
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://vunapay:vunapay_secret@db:5432/wallet_db
+      JWT_SECRET: change_this_in_production
+      JWT_EXPIRES_IN: 7d
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
