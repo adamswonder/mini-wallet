@@ -14,8 +14,8 @@ A lightweight backend service for managing wallet deposits and peer-to-peer tran
 ---
 
 ## Prerequisites
-
-- [Docker](https://www.docker.com/) — the only thing you need. Node.js is not required on your host machine.
+- [Node.js](https://nodejs.org/en) - setup on local machine.
+- [Docker](https://www.docker.com/) — if you skipped Node install.
 
 ---
 
@@ -191,6 +191,9 @@ All errors return a consistent shape:
 
 #### Docker containers running
 ![Docker containers running](assets/container_running.png)
+
+#### Request logs (morgan)
+![App route logs](assets/app_route_logs.png)
 
 #### Register
 ![Register success](assets/register_success.png)
