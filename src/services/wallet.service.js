@@ -6,7 +6,7 @@ function validateAmount(amount) {
     throw new AppError('Amount is required', 400);
   }
   if (!Number.isInteger(amount)) {
-    throw new AppError('Amount must be a whole number (in kobo)', 400);
+    throw new AppError('Amount must be a whole number (in cents)', 400);
   }
   if (amount <= 0) {
     throw new AppError('Amount must be greater than zero', 400);

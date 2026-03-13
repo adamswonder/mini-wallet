@@ -52,7 +52,7 @@ docker compose down -v       # stop containers and wipe the database
 
 ## API Reference
 
-All amounts are in **kobo** (the smallest Nigerian currency unit). `1000 kobo = ₦10`. Using integers avoids floating-point precision bugs.
+All amounts are in **cents** (the smallest Kenyan Shilling unit). `100 cents = KES 1`. Using integers avoids floating-point precision bugs.
 
 ### Auth
 
@@ -223,7 +223,7 @@ All errors return a consistent shape:
 
 ## Design Notes
 
-**Integer amounts** — Balances and transaction amounts are stored in kobo (smallest currency unit) as integers. Floating-point arithmetic is unreliable for money; integers eliminate rounding bugs entirely.
+**Integer amounts** — Balances and transaction amounts are stored in cents (smallest KES unit) as integers. Floating-point arithmetic is unreliable for money; integers eliminate rounding bugs entirely.
 
 **Row-level locking** — Transfers use `SELECT ... FOR UPDATE` inside a PostgreSQL transaction. This prevents two concurrent transfers from the same wallet both reading the same balance, both passing the balance check, and leaving the wallet negative.
 

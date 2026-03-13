@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
   created_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- One wallet per user. Balance stored in kobo (smallest NGN unit) to avoid
+-- One wallet per user. Balance stored in cents (smallest KES unit) to avoid
 -- floating-point precision bugs. The CHECK constraint is a last-resort safety
 -- net; the application enforces this earlier.
 CREATE TABLE IF NOT EXISTS wallets (
