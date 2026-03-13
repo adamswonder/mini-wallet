@@ -223,13 +223,17 @@ All errors return a consistent shape:
 
 ## Design Notes
 
-**Integer amounts** — Balances and transaction amounts are stored in kobo (smallest currency unit) as integers. Floating-point arithmetic is unreliable for money; integers eliminate rounding bugs entirely.
+**Integer amounts** 
+Balances and transaction amounts are stored in kobo (smallest currency unit) as integers. Floating-point arithmetic is unreliable for money; integers eliminate rounding bugs entirely.
 
-**Row-level locking** — Transfers use `SELECT ... FOR UPDATE` inside a PostgreSQL transaction. This prevents two concurrent transfers from the same wallet both reading the same balance, both passing the balance check, and leaving the wallet negative.
+**Row-level locking** 
+Transfers use `SELECT ... FOR UPDATE` inside a PostgreSQL transaction. This prevents two concurrent transfers from the same wallet both reading the same balance, both passing the balance check, and leaving the wallet negative.
 
-**Failed transactions are recorded** — When a transfer fails due to insufficient balance, a `status: 'failed'` transaction is written (outside the rolled-back transaction) to preserve a full audit trail.
+**Failed transactions are recorded** 
+When a transfer fails due to insufficient balance, a `status: 'failed'` transaction is written (outside the rolled-back transaction) to preserve a full audit trail.
 
-**Immutable ledger** — Transaction rows are never updated or deleted, only inserted.
+**Immutable ledger** 
+Transaction rows are never updated or deleted, only inserted.
 
 ---
 
