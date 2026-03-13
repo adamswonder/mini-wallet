@@ -77,7 +77,7 @@ curl -X POST http://localhost:3000/auth/register \
 ```
 
 #### Login
-```bash```
+```bash
 POST /auth/login
 ```
 ```bash
@@ -187,6 +187,37 @@ All errors return a consistent shape:
 
 ---
 
+## Screenshots
+
+#### Docker containers running
+![Docker containers running](assets/container_running.png)
+
+#### Register
+![Register success](assets/register_success.png)
+
+#### Register — duplicate email
+![Register failure](assets/register_failure.png)
+
+#### Login
+![Login success](assets/login_success.png)
+
+#### Get wallet
+![Fetch wallet](assets/featch_wallet.png)
+
+#### Deposit
+![Wallet deposit](assets/wallet_deposit.png)
+
+#### Transfer
+![Wallet transfer](assets/wallet_transfer.png)
+
+#### Transfer — insufficient balance
+![Low wallet balance](assets/low_wallet_balance.png)
+
+#### Transaction history
+![List transactions](assets/list_transactions.png)
+
+---
+
 ## Design Notes
 
 **Integer amounts** — Balances and transaction amounts are stored in kobo (smallest currency unit) as integers. Floating-point arithmetic is unreliable for money; integers eliminate rounding bugs entirely.
@@ -202,7 +233,7 @@ All errors return a consistent shape:
 ## Resetting the database
 
 ```bash
-npm run db:reset
+docker compose down -v && docker compose up --build
 ```
 
-This tears down the container and its volume, then brings it back up clean.
+This tears down the containers and their volume, then brings everything back up clean.
